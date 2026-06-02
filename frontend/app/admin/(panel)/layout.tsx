@@ -8,7 +8,7 @@ export default function AdminPanelLayout({ children }: { children: React.ReactNo
     <AdminAuthGuard>
       <div className="min-h-screen bg-brand-background">
         <AdminSidebar />
-        <main className="ml-64 min-h-screen p-8">{children}</main>
+        <main className="ml-64 min-h-screen p-8 lg:p-10">{children}</main>
       </div>
     </AdminAuthGuard>
   );

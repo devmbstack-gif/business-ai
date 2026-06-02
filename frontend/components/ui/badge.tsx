@@ -5,11 +5,11 @@ type BadgeProps = {
 };
 
 const variants = {
-  default: "bg-brand-secondary/10 text-brand-secondary",
+  default: "bg-brand-primary/10 text-brand-primary",
   success: "bg-brand-success/10 text-brand-success",
   warning: "bg-brand-warning/10 text-brand-warning",
   danger: "bg-brand-danger/10 text-brand-danger",
-  info: "bg-brand-accent/10 text-brand-accent",
+  info: "bg-brand-primary/10 text-brand-primary",
   muted: "bg-brand-background text-brand-text-muted",
 };
 

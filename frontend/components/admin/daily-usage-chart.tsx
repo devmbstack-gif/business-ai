@@ -29,12 +29,12 @@ export function DailyUsageChart({ data }: DailyUsageChartProps) {
           <div key={item.date} className="flex flex-1 flex-col items-center gap-2">
             <div className="flex w-full items-end justify-center gap-1" style={{ height: 140 }}>
               <div
-                className="w-3 rounded-t bg-brand-secondary transition-all"
+                className="w-3 rounded-t bg-brand-primary transition-all"
                 style={{ height: `${analysisHeight}%`, minHeight: item.analyses_count > 0 ? 4 : 0 }}
                 title={`Analyses: ${item.analyses_count}`}
               />
               <div
-                className="w-3 rounded-t bg-brand-accent transition-all"
+                className="w-3 rounded-t bg-brand-primary-light transition-all"
                 style={{ height: `${proposalHeight}%`, minHeight: item.proposals_count > 0 ? 4 : 0 }}
                 title={`Proposals: ${item.proposals_count}`}
               />

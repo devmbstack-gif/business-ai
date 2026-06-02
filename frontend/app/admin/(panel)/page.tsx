@@ -84,11 +84,11 @@ export default function AdminDashboardPage() {
           <CardBody>
             <div className="mb-4 flex gap-4 text-xs text-brand-text-muted">
               <span className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-sm bg-brand-secondary" />
+                <span className="h-2.5 w-2.5 rounded-sm bg-brand-primary" />
                 Analyses
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-sm bg-brand-accent" />
+                <span className="h-2.5 w-2.5 rounded-sm bg-brand-primary-light" />
                 Proposals
               </span>
             </div>

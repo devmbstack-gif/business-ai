@@ -100,7 +100,7 @@ export default function AdminPlansPage() {
           const isEditing = editingId === plan.id;
 
           return (
-            <Card key={plan.id} className={plan.slug === "pro" ? "border-brand-secondary/30 ring-1 ring-brand-secondary/10" : ""}>
+            <Card key={plan.id} className={plan.slug === "pro" ? "border-brand-primary/30 ring-1 ring-brand-primary/10" : ""}>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle>{isEditing ? "Edit Plan" : plan.name}</CardTitle>

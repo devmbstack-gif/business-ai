@@ -1,29 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  /* --brand-primary: #001B3D; */
   --brand-primary: #31B772;
-  --brand-secondary: #1b9254;
-  --brand-accent: #00C2FF;
-  --brand-background: #F4F7FB;
+  --brand-primary-dark: #1e7a4f;
+  --brand-primary-darker: #155c3b;
+  --brand-primary-light: #6FE09F;
+  --brand-background: #F7FBF9;
   --brand-surface: #FFFFFF;
-  --brand-text: #31B772;
+  --brand-text: #0F172A;
   --brand-text-muted: #64748B;
   --brand-border: #E2E8F0;
-  --brand-success: #16A34A;
+  --brand-success: #31B772;
   --brand-success-light: #86EFAC;
   --brand-warning: #EAB308;
   --brand-orange: #F97316;
   --brand-danger: #DC2626;
-  --brand-sidebar: #31B772;
-  --brand-sidebar-hover: #1b9254;
+  --brand-sidebar: #1e7a4f;
+  --brand-sidebar-hover: #186640;
 }
 
 @theme inline {
   --font-sans: "Inter", system-ui, sans-serif;
   --color-brand-primary: var(--brand-primary);
-  --color-brand-secondary: var(--brand-secondary);
-  --color-brand-accent: var(--brand-accent);
+  --color-brand-primary-dark: var(--brand-primary-dark);
+  --color-brand-primary-light: var(--brand-primary-light);
   --color-brand-background: var(--brand-background);
   --color-brand-surface: var(--brand-surface);
   --color-brand-text: var(--brand-text);
@@ -44,13 +44,63 @@ body {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-.gradient-primary {
-  background: linear-gradient(135deg, var(--brand-secondary), var(--brand-accent));
-}
+@layer utilities {
+  .gradient-primary {
+    background: linear-gradient(
+      135deg,
+      var(--brand-primary-darker) 0%,
+      var(--brand-primary) 60%,
+      var(--brand-primary-light) 100%
+    );
+  }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--brand-secondary), var(--brand-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      var(--brand-primary-dark) 0%,
+      var(--brand-primary) 50%,
+      var(--brand-primary-light) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .page-bg {
+    background-color: var(--brand-background);
+    background-image:
+      radial-gradient(circle at 10% 15%, rgba(49, 183, 114, 0.14) 0%, transparent 42%),
+      radial-gradient(circle at 90% 80%, rgba(49, 183, 114, 0.08) 0%, transparent 40%);
+  }
+
+  .login-page-bg {
+    background-color: var(--brand-background);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(49, 183, 114, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(49, 183, 114, 0.08) 0%, transparent 40%);
+  }
+
+  .login-card {
+    box-shadow:
+      0 0 0 1px rgba(49, 183, 114, 0.08),
+      0 8px 24px rgba(30, 122, 79, 0.1),
+      0 24px 48px rgba(30, 122, 79, 0.06);
+  }
+
+  .login-card-accent {
+    background: linear-gradient(
+      90deg,
+      var(--brand-primary-darker),
+      var(--brand-primary),
+      var(--brand-primary-light)
+    );
+  }
+
+  .card-elevated {
+    box-shadow:
+      0 1px 2px rgba(30, 122, 79, 0.04),
+      0 4px 16px rgba(30, 122, 79, 0.08),
+      0 12px 40px rgba(30, 122, 79, 0.06);
+  }
 }

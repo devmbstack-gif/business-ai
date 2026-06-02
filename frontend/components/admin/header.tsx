@@ -20,7 +20,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
   return (
     <header className="mb-8 flex items-center justify-between">
       <div>
-        <h1 className="text-2xl font-bold text-brand-text">{title}</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">{title}</h1>
         {subtitle && <p className="mt-1 text-sm text-brand-text-muted">{subtitle}</p>}
       </div>
       <Button variant="outline" size="sm" onClick={handleLogout}>

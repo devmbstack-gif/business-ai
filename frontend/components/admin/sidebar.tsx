@@ -23,7 +23,7 @@ export function AdminSidebar() {
             alt="Business AI"
             width={40}
             height={40}
-            className="rounded-lg"
+            className="rounded-lg ring-1 ring-white/20"
           />
           <div>
             <p className="text-sm font-bold leading-tight">BUSINESS AI</p>
@@ -43,10 +43,10 @@ export function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
                 isActive
-                  ? "bg-brand-secondary text-white"
-                  : "text-white/70 hover:bg-brand-sidebar-hover hover:text-white"
+                  ? "bg-brand-primary text-white shadow-md shadow-black/20"
+                  : "text-white/65 hover:bg-white/10 hover:text-white"
               }`}
             >
               <item.icon active={isActive} />

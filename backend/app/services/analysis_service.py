@@ -1,7 +1,10 @@
+import logging
 import time
 from typing import Any, Optional
 
 from sqlalchemy.orm import Session
+
+logger = logging.getLogger(__name__)
 
 from app.models.analysis import (
     BidDecision,
@@ -117,9 +120,20 @@ class AnalysisService:
         screenshot_path: Optional[str] = None,
         user: Optional[User] = None,
         generate_proposal: bool = True,
+        freelancer_name: Optional[str] = None,
+        freelancer_skills: Optional[str] = None,
+        freelancer_experience: Optional[str] = None,
     ) -> JobAnalysisResponse:
         start = time.time()
         client_dict = self._client_info_to_dict(client_info)
+
+        freelancer_profile: dict[str, str] = {}
+        if freelancer_name:
+            freelancer_profile["name"] = freelancer_name
+        if freelancer_skills:
+            freelancer_profile["skills"] = freelancer_skills
+        if freelancer_experience:
+            freelancer_profile["experience"] = freelancer_experience
 
         ai_result = self.ai.analyze_job(
             job_description=job_description,
@@ -168,9 +182,31 @@ class AnalysisService:
             "ai_provider_used": ai_result.get("ai_provider_used"),
             "proposal_text": ai_result.get("proposal_text") if generate_proposal else None,
             "proposal_generated": bool(ai_result.get("proposal_text")) and generate_proposal,
-            "processing_time_ms": int((time.time() - start) * 1000),
+            "processing_time_ms": 0,
         }
 
+        if generate_proposal and not analysis_data.get("proposal_text"):
+            try:
+                proposal_result = self.ai.generate_proposal(
+                    job_description=job_description,
+                    client_info=client_dict,
+                    analysis_context={
+                        "success_score": success_score,
+                        "bid_decision": ai_result.get("bid_decision"),
+                        "extracted_job_info": ai_result.get("extracted_job_info"),
+                    },
+                    freelancer_profile=freelancer_profile or None,
+                )
+                proposal_text = proposal_result.get("proposal_text", "")
+                if proposal_text:
+                    analysis_data["proposal_text"] = proposal_text
+                    analysis_data["proposal_generated"] = True
+                    if proposal_result.get("ai_provider_used"):
+                        analysis_data["ai_provider_used"] = proposal_result["ai_provider_used"]
+            except Exception as exc:
+                logger.warning("Proposal fallback generation failed: %s", exc)
+
+        analysis_data["processing_time_ms"] = int((time.time() - start) * 1000)
         analysis = self.analysis_repo.create(analysis_data)
         self.analysis_repo.store_full_analysis(analysis, ai_result)
 

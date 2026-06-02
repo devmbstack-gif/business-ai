@@ -20,8 +20,11 @@ router = APIRouter(prefix="/analysis", tags=["Job Analysis"])
 async def submit_job_analysis(
     job_description: str = Form(...),
     client_info: str = Form(...),
-    generate_proposal: bool = Form(True),
+    generate_proposal: bool = Form(default=True),
     screenshot: Optional[UploadFile] = File(None),
+    freelancer_name: Optional[str] = Form(default=None),
+    freelancer_skills: Optional[str] = Form(default=None),
+    freelancer_experience: Optional[str] = Form(default=None),
     db: Session = Depends(get_db),
     current_user: Optional[User] = Depends(get_current_user_optional),
 ):
@@ -48,10 +51,16 @@ async def submit_job_analysis(
             screenshot_path=screenshot_path,
             user=current_user,
             generate_proposal=generate_proposal,
+            freelancer_name=freelancer_name,
+            freelancer_skills=freelancer_skills,
+            freelancer_experience=freelancer_experience,
         )
+        message = "Job analysis completed successfully"
+        if generate_proposal and not result.proposal_text:
+            message = "Job analysis completed, but proposal could not be generated"
         return success_response(
             data=result.model_dump(),
-            message="Job analysis completed successfully",
+            message=message,
         )
     except AIServiceError as exc:
         raise HTTPException(
